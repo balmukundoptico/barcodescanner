@@ -12,16 +12,18 @@ const RegisterScreen = ({ navigation, route }) => {
 
   const handleRegister = async () => {
     try {
-      await axios.post('http://localhost:5000/api/auth/register', {
+      const response = await axios.post('https://barcodescanner-8v45.onrender.com/api/auth/register', {
         name,
         companyName,
         email,
         mobile,
         password,
       });
+      console.log('Registration response:', response.data); // Log response for debugging
       alert('Registration successful! Awaiting admin approval.');
       navigation.navigate('Login', { theme });
     } catch (error) {
+      console.error('Registration error:', error.response?.data || error.message);
       alert('Registration failed: ' + (error.response?.data?.message || error.message));
     }
   };
@@ -29,12 +31,46 @@ const RegisterScreen = ({ navigation, route }) => {
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       <Text style={[styles.title, { color: theme.text }]}>Register</Text>
-      <TextInput style={[styles.input, { borderColor: theme.primary, color: theme.text }]} placeholder="Name" value={name} onChangeText={setName} />
-      <TextInput style={[styles.input, { borderColor: theme.primary, color: theme.text }]} placeholder="Company Name" value={companyName} onChangeText={setCompanyName} />
-      <TextInput style={[styles.input, { borderColor: theme.primary, color: theme.text }]} placeholder="Email" value={email} onChangeText={setEmail} />
-      <TextInput style={[styles.input, { borderColor: theme.primary, color: theme.text }]} placeholder="Mobile" value={mobile} onChangeText={setMobile} />
-      <TextInput style={[styles.input, { borderColor: theme.primary, color: theme.text }]} placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry />
+      <TextInput
+        style={[styles.input, { borderColor: theme.primary, color: theme.text }]}
+        placeholder="Name"
+        value={name}
+        onChangeText={setName}
+      />
+      <TextInput
+        style={[styles.input, { borderColor: theme.primary, color: theme.text }]}
+        placeholder="Company Name"
+        value={companyName}
+        onChangeText={setCompanyName}
+      />
+      <TextInput
+        style={[styles.input, { borderColor: theme.primary, color: theme.text }]}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <TextInput
+        style={[styles.input, { borderColor: theme.primary, color: theme.text }]}
+        placeholder="Mobile"
+        value={mobile}
+        onChangeText={setMobile}
+        keyboardType="phone-pad"
+      />
+      <TextInput
+        style={[styles.input, { borderColor: theme.primary, color: theme.text }]}
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
       <Button title="Register" onPress={handleRegister} color={theme.primary} />
+      <Button
+        title="Back to Login"
+        onPress={() => navigation.navigate('Login', { theme })}
+        color={theme.primary}
+      />
     </View>
   );
 };

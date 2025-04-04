@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker'; // Updated import
+import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -13,7 +13,7 @@ const LoginScreen = ({ navigation, route }) => {
   const handleLogin = async () => {
     console.log('Attempting login with:', { email, password, role });
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const res = await axios.post('https://barcodescanner-8v45.onrender.com/api/auth/login', { email, password });
       console.log('Login response:', res.data);
       await AsyncStorage.setItem('token', res.data.token);
       if (res.data.user.role === 'admin') {
@@ -29,6 +29,7 @@ const LoginScreen = ({ navigation, route }) => {
     }
   };
 
+  // Rest of the code remains unchanged
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       <Text style={[styles.title, { color: theme.text }]}>Login</Text>

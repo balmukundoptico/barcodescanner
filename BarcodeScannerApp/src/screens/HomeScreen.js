@@ -103,8 +103,8 @@ const HomeScreen = ({ route, navigation }) => {
     const token = await AsyncStorage.getItem('token');
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/barcode/undo',
-        { barcode },
+        'https://barcodescanner-8v45.onrender.com/api/barcode/scan',
+        { barcode: data },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert(res.data.message);
