@@ -3,15 +3,32 @@
     "name": "BarcodeScannerApp",
     "slug": "BarcodeScannerApp",
     "version": "1.0.0",
-    "icon": "./assets/logo.png",
     "splash": {
-      "image": "./assets/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "newArchEnabled": true, 
+    "newArchEnabled": true,
     "plugins": [
-      "expo-barcode-scanner" 
-    ]
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
+          "enableCodeScanner": true
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "70d9e600-c54a-435a-b211-5b02ad66722a"
+      }
+    },
+    "android": {
+      "package": "com.balmukundoptico.BarcodeScannerApp",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "owner": "balmukundoptico"
   }
 }
